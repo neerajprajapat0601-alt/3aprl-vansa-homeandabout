@@ -1,0 +1,200 @@
+<section class="shopify-wellness-split-master">
+  <div class="wellness-content-container">
+    
+    <div class="wellness-header-wrapper">
+      <div class="pill-badge-container">
+        <span class="pill-badge">OUR PURPOSE</span>
+      </div>
+      <h2 class="main-section-title">What Drives <span class="title-split-gap">Us Forward</span></h2>
+    </div>
+
+    <div class="wellness-main-grid">
+      <div class="column-box mission-box">
+        <div class="content-inner">
+          <div class="floating-quote">“</div>
+          <span class="label-eyebrow">OUR MISSION</span>
+          <h3 class="serif-display">To Make <br><span class="green-italic">Healing</span> <br>Accessible</h3>
+          <p class="desc-para">We exist to bridge the gap between ancient Ayurvedic wisdom and modern living—making authentic wellness not a luxury, but a fundamental right.</p>
+          <div class="dark-accent-line"></div>
+        </div>
+      </div>
+
+      <div class="column-box vision-box">
+        <div class="content-inner">
+          <div class="watermark-number">20</div>
+          <span class="label-eyebrow">OUR VISION</span>
+          <h3 class="serif-display">A World <br>Where <br><span class="green-italic">Balance</span> <br>Thrives</h3>
+          <p class="desc-para">We envision a future where holistic health is the norm, not the exception—where every individual understands their unique constitution and has the tools to nurture it.</p>
+          <div class="dark-accent-line"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-floating-banner">
+      <p>We're not just selling supplements. <br> We're igniting a wellness revolution.</p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* 1. Master Split Background - Poore section ke liye */
+  .shopify-wellness-split-master {
+    width: 100%;
+    /* 50% Green | 50% White - Isse header bhi split ho jayega */
+    background: linear-gradient(to right, #e1e9e1 50%, #ffffff 50%);
+    padding: 80px 0 120px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wellness-content-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* 2. Header Styles */
+  .wellness-header-wrapper {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .pill-badge {
+    display: inline-block;
+    border: 1px solid #b5c2b5;
+    padding: 5px 15px;
+    border-radius: 40px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: #666;
+    background: rgba(255,255,255,0.4);
+    margin-bottom: 20px;
+  }
+
+  .main-section-title {
+    font-family: serif;
+    font-size: 54px;
+    color: #1a2e26;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  /* Title ke andar gap handle karne ke liye */
+  .title-split-gap {
+    padding-left: 20px;
+  }
+
+  /* 3. Grid & Columns */
+  .wellness-main-grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .column-box {
+    flex: 1;
+    min-width: 350px;
+    padding: 60px 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .content-inner {
+    max-width: 420px;
+    width: 100%;
+    position: relative;
+  }
+
+  .serif-display {
+    font-family: serif;
+    font-size: 68px;
+    line-height: 1.05;
+    color: #1a2e26;
+    margin-bottom: 30px;
+    font-weight: 400;
+  }
+
+  .green-italic {
+    font-style: italic;
+    color: #6b8e6b;
+  }
+
+  .label-eyebrow {
+    font-size: 11px;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 25px;
+    color: #1a2e26;
+  }
+
+  .desc-para {
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #333;
+  }
+
+  .dark-accent-line {
+    width: 45px;
+    height: 2px;
+    background-color: #1a2e26;
+    margin-top: 30px;
+  }
+
+  /* Watermarks */
+  .floating-quote {
+    font-family: serif;
+    font-size: 140px;
+    color: rgba(0,0,0,0.04);
+    position: absolute;
+    top: -60px;
+    left: -40px;
+  }
+
+  .watermark-number {
+    font-family: sans-serif;
+    font-size: 200px;
+    font-weight: 800;
+    color: rgba(0,0,0,0.02);
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    z-index: -1;
+  }
+
+  /* 4. Bottom Banner Overlay */
+  .bottom-floating-banner {
+    background-color: #d1dbd1;
+    padding: 40px;
+    text-align: center;
+    max-width: 580px;
+    margin: -40px auto 0;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  }
+
+  .bottom-floating-banner p {
+    font-family: serif;
+    font-style: italic;
+    font-size: 28px;
+    color: #1a2e26;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  /* 5. Mobile Responsive */
+  @media (max-width: 900px) {
+    .shopify-wellness-split-master {
+      background: #e1e9e1; /* Mobile par solid green */
+    }
+    .wellness-main-grid { flex-direction: column; }
+    .vision-box { background-color: #ffffff; padding: 60px 20px; }
+    .serif-display { font-size: 50px; }
+    .bottom-floating-banner { width: 90%; min-width: auto; margin-top: 20px; }
+    .column-box { padding: 40px 20px; }
+  }
+</style>
