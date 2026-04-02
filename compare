@@ -1,0 +1,169 @@
+<section class="comparison-section-{{ section.id }}">
+  <div class="comparison-container">
+    
+    <div class="comp-header">
+      <span class="comp-eyebrow">{{ section.settings.eyebrow }}</span>
+      <h2 class="comp-title">
+        Why We're Not Like <br>
+        <span class="italic-green-text">Everyone Else</span>
+      </h2>
+    </div>
+
+    <div class="comp-table-wrapper">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th class="col-category">CATEGORY</th>
+            <th class="col-others">✕ {{ section.settings.label_others }}</th>
+            <th class="col-us"><span class="check-icon">✓</span> {{ section.settings.label_us }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for block in section.blocks %}
+          <tr {{ block.shopify_attributes }}>
+            <td class="cat-name">{{ block.settings.category }}</td>
+            <td class="others-text">{{ block.settings.text_others }}</td>
+            <td class="us-text active-cell">
+               <span class="cell-check">✓</span> {{ block.settings.text_us }}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="comp-footer">
+      <p>{{ section.settings.footer_text }}</p>
+    </div>
+    
+  </div>
+</section>
+
+<style>
+  /* Color Variables - Match directly to your screenshot */
+  .comparison-section-{{ section.id }} {
+    --brand-green: #6b8e6b; /* The exact green from your image */
+    --bg-light-green: #e1e9e1;
+    --highlight-cell: #c8d8c8;
+    --text-dark: #1a2e26;
+    
+    background-color: var(--bg-light-green);
+    padding: 100px 0;
+    font-family: "Cormorant Garamond", serif; /* Or your theme's serif */
+  }
+
+  .comparison-container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  .comp-header { text-align: center; margin-bottom: 60px; }
+  
+  .comp-eyebrow { 
+    font-size: 11px; 
+    letter-spacing: 2px; 
+    color: rgba(26, 46, 38, 0.5); 
+    display: block; 
+    margin-bottom: 20px;
+    font-family: sans-serif;
+  }
+
+  .comp-title { 
+    font-size: 54px; 
+    color: var(--text-dark); 
+    margin: 0; 
+    font-weight: 400; 
+    line-height: 1.1; 
+  }
+
+  /* Targetting the "Everyone Else" style */
+  .italic-green-text {
+    color: var(--brand-green);
+    font-style: italic;
+    font-family: serif; /* Ensures distinct look */
+  }
+
+  .comp-table-wrapper { 
+    background-color: rgba(255, 255, 255, 0.2); 
+    border-radius: 4px; 
+    overflow: hidden; 
+  }
+
+  .comp-table { width: 100%; border-collapse: collapse; }
+
+  .comp-table th { 
+    text-align: left; 
+    padding: 30px 40px; 
+    font-size: 12px; 
+    letter-spacing: 1px;
+    color: var(--text-dark); 
+    font-family: sans-serif; 
+    font-weight: 600;
+  }
+
+  /* "Our Approach" header in green */
+  .col-us { 
+    color: var(--brand-green) !important; 
+  }
+
+  .comp-table td { 
+    padding: 25px 40px; 
+    border-bottom: 1px solid rgba(255,255,255,0.4); 
+    font-size: 17px; 
+    color: var(--text-dark); 
+    line-height: 1.5;
+  }
+
+  .cat-name { font-weight: 500; }
+
+  /* Green highlighted column */
+  .active-cell { 
+    background-color: var(--highlight-cell); 
+    border-bottom: 2px solid var(--bg-light-green) !important; 
+    color: var(--text-dark);
+  }
+
+  .cell-check {
+    color: var(--brand-green);
+    margin-right: 10px;
+    font-weight: bold;
+  }
+
+  .comp-footer { text-align: center; margin-top: 60px; }
+  .comp-footer p { 
+    font-style: italic; 
+    font-size: 22px; 
+    color: rgba(26, 46, 38, 0.4); 
+    font-weight: 400;
+  }
+
+  @media (max-width: 768px) {
+    .comp-title { font-size: 38px; }
+    .comp-table thead { display: none; }
+    .comp-table td { display: block; width: 100% !important; padding: 25px 20px; text-align: center; }
+    .active-cell { border-bottom: none !important; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Comparison Table",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "THE DIFFERENCE" },
+    { "type": "text", "id": "label_others", "label": "Others Header Label", "default": "MOST WELLNESS BRANDS" },
+    { "type": "text", "id": "label_us", "label": "Our Header Label", "default": "OUR APPROACH" },
+    { "type": "text", "id": "footer_text", "label": "Footer Text", "default": "When you choose us, you're choosing intentionality over convenience." }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Table Row",
+      "settings": [
+        { "type": "text", "id": "category", "label": "Category (e.g. Sourcing)" },
+        { "type": "textarea", "id": "text_others", "label": "Others Brands Text" },
+        { "type": "textarea", "id": "text_us", "label": "Our Approach Text" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Comparison Table", "blocks": [ { "type": "row" }, { "type": "row" } ] }
+  ]
+}
+{% endschema %}
