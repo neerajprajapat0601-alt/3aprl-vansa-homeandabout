@@ -1,0 +1,279 @@
+{%- style -%}
+  .journey-section-{{ section.id }} {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px 0;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .journey-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .journey-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+
+  .journey-header .eyebrow {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #888;
+    display: block;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+
+  .journey-header .main-title {
+    font-family: serif;
+    font-size: 48px;
+    color: #1a2e26;
+    margin: 0 0 20px 0;
+    font-weight: 400;
+  }
+
+  .sub-intro {
+    font-family: sans-serif;
+    color: #666;
+    line-height: 1.6;
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .steps-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+  }
+
+  .journey-row {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
+
+  /* Alternating Logic: Har dusra block reverse ho jayega */
+  .journey-row:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  .journey-image-col, .journey-text-col {
+    flex: 1;
+  }
+
+  .image-inner-border {
+    border: 1px solid #e0e0e0;
+    padding: 15px;
+    border-radius: 4px;
+    background: #fff;
+  }
+
+  .image-inner-border img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .step-number {
+    font-family: serif;
+    font-size: 60px;
+    color: #6b8e6b;
+    display: block;
+    margin-bottom: 10px;
+    line-height: 1;
+  }
+
+  .step-title {
+    font-family: serif;
+    font-size: 36px;
+    color: #1a2e26;
+    margin: 0 0 10px 0;
+    font-weight: 400;
+  }
+
+  .step-subtitle {
+    font-size: 14px;
+    color: #6b8e6b;
+    display: block;
+    margin-bottom: 20px;
+    font-family: sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .step-desc {
+    font-family: sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 30px;
+    max-width: 450px;
+  }
+
+  .arrow-link {
+    text-decoration: none;
+    font-size: 28px;
+    color: #ccc;
+    transition: 0.3s;
+  }
+
+  .arrow-link:hover {
+    color: #1a2e26;
+    padding-left: 5px;
+  }
+
+  @media (max-width: 768px) {
+    .journey-row, .journey-row:nth-child(even) {
+      flex-direction: column;
+      gap: 30px;
+      text-align: center;
+    }
+    .step-desc { margin: 0 auto 20px; }
+    .main-title { font-size: 34px; }
+  }
+{%- endstyle -%}
+
+<section class="journey-section-{{ section.id }}">
+  <div class="journey-container">
+    
+    <div class="journey-header">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h2 class="main-title">{{ section.settings.title }}</h2>
+      <div class="sub-intro">{{ section.settings.subtext }}</div>
+    </div>
+
+    <div class="steps-wrapper">
+      {%- for block in section.blocks -%}
+        <div class="journey-row" {{ block.shopify_attributes }}>
+          
+          <div class="journey-image-col">
+            <div class="image-inner-border">
+              {%- if block.settings.image != blank -%}
+                <img src="{{ block.settings.image | img_url: '800x' }}" alt="{{ block.settings.title }}">
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+          </div>
+
+          <div class="journey-text-col">
+            <span class="step-number">{{ block.settings.step_count }}</span>
+            <h3 class="step-title">{{ block.settings.title }}</h3>
+            <span class="step-subtitle">{{ block.settings.subtitle }}</span>
+            <div class="step-desc">{{ block.settings.description }}</div>
+            {%- if block.settings.link != blank -%}
+              <a href="{{ block.settings.link }}" class="arrow-link">→</a>
+            {%- endif -%}
+          </div>
+
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Dynamic Journey Steps",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "FROM EARTH TO YOU"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title",
+      "default": "Our Journey of Care"
+    },
+    {
+      "type": "richtext",
+      "id": "subtext",
+      "label": "Sub-header Text",
+      "default": "<p>Every product follows a meticulous path—one that honors tradition while embracing modern standards.</p>"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 150,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Step Image"
+        },
+        {
+          "type": "text",
+          "id": "step_count",
+          "label": "Step Number (e.g. 01)",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step Title",
+          "default": "Sourcing"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Step Subtitle",
+          "default": "Ethical & Sustainable"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Add your step description here.</p>"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Arrow Link (Optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic Journey Steps",
+      "blocks": [
+        { "type": "step" },
+        { "type": "step" }
+      ]
+    }
+  ]
+}
+{% endschema %}
