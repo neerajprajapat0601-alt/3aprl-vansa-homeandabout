@@ -1,0 +1,218 @@
+<div class="testimonial-section-wrapper">
+  <div class="testimonial-container">
+    
+    <div class="testimonial-header">
+      <span class="subheading">{{ section.settings.subheading }}</span>
+      <h2 class="main-heading">
+        {{ section.settings.heading_line_1 }}<br>
+        <span class="italic-heading">{{ section.settings.heading_line_2 }}</span>
+      </h2>
+    </div>
+
+    <div class="testimonial-grid">
+      {% for block in section.blocks %}
+        <div class="testimonial-card">
+          <div class="quote-icon">"</div>
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">{{ block.settings.text }}</p>
+          <span class="product-tag">{{ block.settings.product_tag }}</span>
+          
+          <div class="user-info">
+            {% if block.settings.image %}
+              <img src="{{ block.settings.image | img_url: '100x100', crop: 'center' }}" alt="{{ block.settings.author }}">
+            {% else %}
+              <div class="placeholder-img"></div>
+            {% endif %}
+            <div class="user-details">
+              <span class="author-name">{{ block.settings.author }}</span>
+              <span class="author-role">{{ block.settings.role }}</span>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="testimonial-footer">
+      <span class="rating-summary">★ Rated <strong>{{ section.settings.rating }}</strong> by over {{ section.settings.customer_count }} customers</span>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Testimonial Grid",
+  "settings": [
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "TRUSTED STORIES" },
+    { "type": "text", "id": "heading_line_1", "label": "Heading Line 1", "default": "Real People," },
+    { "type": "text", "id": "heading_line_2", "label": "Heading Line 2", "default": "Real Results" },
+    { "type": "text", "id": "rating", "label": "Rating", "default": "4.9/5" },
+    { "type": "text", "id": "customer_count", "label": "Customer Count", "default": "5,000+" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "textarea", "id": "text", "label": "Testimonial Text" },
+        { "type": "text", "id": "product_tag", "label": "Product Tag" },
+        { "type": "image_picker", "id": "image", "label": "User Image" },
+        { "type": "text", "id": "author", "label": "Author Name" },
+        { "type": "text", "id": "role", "label": "Author Role" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Custom Testimonial Grid" }
+  ]
+}
+{% endschema %}
+<style>
+.testimonial-section-wrapper {
+  background-color: #e3ede3; /* Soft sage background */
+  padding: 80px 20px;
+  font-family: 'Serif', Georgia, Times, serif;
+  text-align: center;
+}
+
+.testimonial-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.testimonial-header .subheading {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #6b7a6b;
+  background: rgba(0,0,0,0.05);
+  padding: 4px 15px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.main-heading {
+  font-size: clamp(32px, 5vw, 56px);
+  color: #2d3e2d;
+  margin: 0 0 50px 0;
+  line-height: 1.1;
+}
+
+.italic-heading {
+  font-style: italic;
+  color: #5c7c5c;
+  font-weight: 400;
+}
+
+.testimonial-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.testimonial-card {
+  background: #fff;
+  padding: 40px 30px;
+  width: 100%;
+  max-width: 320px;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  position: relative;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+/* Specific rotations to match your image */
+.testimonial-card:nth-child(1) { transform: rotate(-2deg); }
+.testimonial-card:nth-child(2) { transform: rotate(1deg); margin-top: 20px;}
+.testimonial-card:nth-child(3) { transform: rotate(-1deg); }
+
+.quote-icon {
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  background: #5c7c5c;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.stars {
+  color: #5c7c5c;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.testimonial-text {
+  font-style: italic;
+  color: #555;
+  line-height: 1.6;
+  font-size: 15px;
+  margin-bottom: 20px;
+  min-height: 80px;
+}
+
+.product-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  background: #f4f4f4;
+  padding: 5px 12px;
+  border-radius: 15px;
+  color: #888;
+  letter-spacing: 1px;
+}
+
+.user-info {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-info img, .placeholder-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #ccc;
+}
+
+.author-name {
+  display: block;
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+
+.author-role {
+  font-size: 12px;
+  color: #999;
+}
+
+.testimonial-footer {
+  margin-top: 30px;
+  color: #5c7c5c;
+  font-size: 14px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .testimonial-card {
+    transform: rotate(0) !important; /* Remove tilt on mobile for better scrolling */
+    margin-top: 0 !important;
+    max-width: 100%;
+  }
+  .testimonial-grid {
+    gap: 20px;
+  }
+}
+</style>
