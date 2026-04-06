@@ -1,0 +1,216 @@
+<div class="wellness-journey-section" id="section-{{ section.id }}">
+  <div class="wellness-header">
+    <span class="sub-badge">{{ section.settings.subheading }}</span>
+    <h2 class="main-title">{{ section.settings.heading }}</h2>
+    <p class="sub-description">{{ section.settings.description }}</p>
+  </div>
+
+  <div class="wellness-slider-container">
+    <div class="wellness-grid" id="wellness-grid-{{ section.id }}">
+      {% for block in section.blocks %}
+        <div class="wellness-card">
+          <a href="{{ block.settings.link }}" class="card-link">
+            <div class="image-wrapper">
+              <img src="{{ block.settings.image | img_url: '800x' }}" alt="{{ block.settings.title }}" loading="lazy">
+              
+              <div class="floating-icon">
+                {{ block.settings.icon_svg }}
+              </div>
+
+              <div class="desktop-overlay">
+                <span class="card-eyebrow">{{ block.settings.eyebrow }}</span>
+                <h3 class="card-title">{{ block.settings.title }}</h3>
+                <div class="explore-row">
+                  <span class="explore-text">EXPLORE</span>
+                  <div class="explore-line"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mobile-info">
+              <h3 class="mobile-card-title">{{ block.settings.title }}</h3>
+              <p class="mobile-card-sub">{{ block.settings.eyebrow }}</p>
+            </div>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <div class="slider-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Wellness Journey Slider",
+  "settings": [
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "SHOP BY NEED" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Your Wellness Journey" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Discover formulations designed for your unique constitution" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Card Image" },
+        { "type": "html", "id": "icon_svg", "label": "Icon SVG Code" },
+        { "type": "text", "id": "eyebrow", "label": "Eyebrow Text (e.g. BUILD RESILIENCE)" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Immunity" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Wellness Journey Slider" }
+  ]
+}
+{% endschema %}
+
+<style>
+.wellness-journey-section {
+  padding: 60px 0;
+  text-align: center;
+  background: #fff;
+  overflow: hidden;
+}
+
+.sub-badge {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  background: #f4f4f4;
+  padding: 5px 15px;
+  border-radius: 20px;
+  color: #666;
+  text-transform: uppercase;
+}
+
+.main-title {
+  font-family: serif;
+  font-size: 48px;
+  color: #3d5a3d;
+  margin: 20px 0 10px;
+}
+
+.sub-description {
+  color: #777;
+  max-width: 600px;
+  margin: 0 auto 50px;
+}
+
+.wellness-grid {
+  display: flex;
+  gap: 20px;
+  padding: 0 5%;
+  justify-content: center;
+}
+
+.wellness-card {
+  flex: 0 0 18%; /* 5 items on desktop */
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.image-wrapper {
+  position: relative;
+  aspect-ratio: 2/3;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Desktop Overlay */
+.desktop-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 20px;
+  text-align: left;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: white;
+}
+
+.card-eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; }
+.card-title { font-family: serif; font-size: 24px; margin: 5px 0 15px; font-weight: 400; }
+
+.explore-row { display: flex; align-items: center; gap: 10px; }
+.explore-text { font-size: 10px; letter-spacing: 2px; }
+.explore-line { height: 1px; width: 30px; background: white; }
+
+.floating-icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 35px;
+  height: 35px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+.floating-icon svg { width: 18px; height: 18px; fill: white; }
+
+.mobile-info { display: none; }
+
+/* --- MOBILE STYLES (Image 2) --- */
+@media (max-width: 768px) {
+  .wellness-grid {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 30px;
+    scrollbar-width: none;
+  }
+  .wellness-grid::-webkit-scrollbar { display: none; }
+
+  .wellness-card {
+    flex: 0 0 45%; /* Shows 2.2 cards */
+    scroll-snap-align: center;
+  }
+
+  .image-wrapper {
+    aspect-ratio: 1/1; /* Square images like Image 2 */
+    border-radius: 20px;
+    background: #f0f0f0;
+    padding: 15px; /* Grey padding look */
+  }
+
+  .image-wrapper img {
+    border-radius: 15px; /* Rounded inner image */
+  }
+
+  .desktop-overlay, .floating-icon { display: none; }
+
+  .mobile-info {
+    display: block;
+    padding-top: 15px;
+    text-align: center;
+  }
+
+  .mobile-card-title { font-size: 16px; margin: 0; color: #1a1a1a; }
+  .mobile-card-sub { font-size: 12px; color: #888; margin-top: 4px; }
+  
+  .main-title { font-size: 32px; }
+  
+  .slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; }
+  .dot.active { background: #5c7c5c; }
+}
+</style>
