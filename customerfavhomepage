@@ -65,12 +65,12 @@
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
-  align-items: center;
+  align-items: center; 
   gap: 80px;
 }
 
-.ayurveda-content { flex: 1.2; }
-.ayurveda-image-wrap { flex: 1; }
+.ayurveda-content { flex: 1.2; order: 1; }
+.ayurveda-image-wrap { flex: 1; order: 2; }
 
 .eyebrow-tag {
   font-size: 11px;
@@ -84,7 +84,7 @@
 }
 
 .ayurveda-heading {
-  font-family: "Times New Roman", Times, serif; /* Using standard serif for reliability */
+  font-family: "Times New Roman", Times, serif; 
   font-size: clamp(32px, 4vw, 48px);
   line-height: 1.1;
   margin: 25px 0 10px 0;
@@ -130,7 +130,7 @@
 .feature-icon-box svg { width: 22px; height: 22px; stroke: #fff; fill: none; }
 
 .bold-title {
-  font-weight: 800; /* Matching your Bold request */
+  font-weight: 800; /* Extra bold for feature titles */
   font-size: 16px;
   color: #1a1a1a;
   margin: 0 0 6px 0;
@@ -148,7 +148,7 @@
   text-decoration: none;
   border-radius: 8px;
   font-weight: 600;
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s;
 }
 
 .ayurveda-btn:hover { background: #4a634a; transform: translateY(-3px); }
@@ -158,20 +158,28 @@
   height: auto;
   border-radius: 24px;
   display: block;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
 }
 
-.placeholder-svg { width: 100%; height: 500px; border-radius: 24px; background: #eee; }
-
+/* --- MOBILE RESPONSIVE FIX --- */
 @media (max-width: 1024px) {
-  .ayurveda-container { flex-direction: column; gap: 50px; }
-  .ayurveda-content { order: 2; }
-  .ayurveda-image-wrap { order: 1; width: 100%; }
-}
-
-@media (max-width: 600px) {
-  .ayurveda-features-grid { grid-template-columns: 1fr; }
+  .ayurveda-container { 
+    flex-direction: column; 
+    gap: 50px; 
+  }
+  
+  /* Text Content stays on Top (Order 1) */
+  .ayurveda-content { width: 100%; }
+  
+  /* Image moves to Bottom (Order 2) */
+  .ayurveda-image-wrap { width: 100%; margin-top: 20px; }
+  
+  .ayurveda-features-grid { 
+    grid-template-columns: 1fr; 
+    gap: 30px;
+  }
+  
   .ayurveda-heading { font-size: 32px; }
+  .ayurveda-feature-section { padding: 50px 20px; }
 }
 </style>
 
