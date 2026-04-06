@@ -1,0 +1,214 @@
+<section class="ayurveda-feature-section" id="ayurveda-{{ section.id }}">
+  <div class="ayurveda-container">
+    
+    <div class="ayurveda-content">
+      {% if section.settings.subheading != blank %}
+        <span class="eyebrow-tag">{{ section.settings.subheading }}</span>
+      {% endif %}
+      
+      <div class="heading-group">
+        <h2 class="ayurveda-heading">
+          <span class="brand-name">{{ section.settings.heading_main }}</span> —<br>
+          <span class="tagline">{{ section.settings.heading_accent }}</span>
+        </h2>
+        <div class="green-underline"></div>
+      </div>
+      
+      <div class="ayurveda-description">
+        {{ section.settings.description }}
+      </div>
+
+      <div class="ayurveda-features-grid">
+        {% for block in section.blocks %}
+          <div class="feature-item" {{ block.shopify_attributes }}>
+            <div class="feature-icon-box">
+              {% if block.settings.icon_svg != blank %}
+                {{ block.settings.icon_svg }}
+              {% else %}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.4 21 2c-2.4 4-3 5.5-4.1 11.2A7 7 0 0 1 11 20z"></path><path d="M11 20v-5"></path></svg>
+              {% endif %}
+            </div>
+            <div class="feature-text">
+              <h3 class="bold-title">{{ block.settings.title }}</h3>
+              <p class="feature-desc">{{ block.settings.text }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.btn_label != blank %}
+        <a href="{{ section.settings.btn_link }}" class="ayurveda-btn">
+          <span class="btn-arrow">→</span> {{ section.settings.btn_label }}
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="ayurveda-image-wrap">
+      {% if section.settings.main_image != blank %}
+        <img src="{{ section.settings.main_image | img_url: '1200x' }}" alt="{{ section.settings.heading_main }}" class="main-img" loading="lazy">
+      {% else %}
+        {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+.ayurveda-feature-section {
+  padding: 80px 5%;
+  background-color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.ayurveda-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+.ayurveda-content { flex: 1.2; }
+.ayurveda-image-wrap { flex: 1; }
+
+.eyebrow-tag {
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  color: #888;
+  background: #f4f4f4;
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.ayurveda-heading {
+  font-family: "Times New Roman", Times, serif; /* Using standard serif for reliability */
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.1;
+  margin: 25px 0 10px 0;
+}
+
+.brand-name { color: #5c7c5c; font-style: italic; font-weight: 400; }
+.tagline { color: #2d3e2d; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+.green-underline {
+  width: 100px;
+  height: 4px;
+  background-color: #5c7c5c;
+  margin: 20px 0 35px 0;
+}
+
+.ayurveda-description {
+  color: #444;
+  font-size: 17px;
+  line-height: 1.7;
+  margin-bottom: 45px;
+}
+
+.ayurveda-features-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 30px;
+  margin-bottom: 50px;
+}
+
+.feature-item { display: flex; gap: 18px; align-items: flex-start; }
+
+.feature-icon-box {
+  background-color: #6b8a6b;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.feature-icon-box svg { width: 22px; height: 22px; stroke: #fff; fill: none; }
+
+.bold-title {
+  font-weight: 800; /* Matching your Bold request */
+  font-size: 16px;
+  color: #1a1a1a;
+  margin: 0 0 6px 0;
+}
+
+.feature-desc { font-size: 14px; color: #666; margin: 0; line-height: 1.5; }
+
+.ayurveda-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #5c7c5c;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ayurveda-btn:hover { background: #4a634a; transform: translateY(-3px); }
+
+.main-img {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  display: block;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.placeholder-svg { width: 100%; height: 500px; border-radius: 24px; background: #eee; }
+
+@media (max-width: 1024px) {
+  .ayurveda-container { flex-direction: column; gap: 50px; }
+  .ayurveda-content { order: 2; }
+  .ayurveda-image-wrap { order: 1; width: 100%; }
+}
+
+@media (max-width: 600px) {
+  .ayurveda-features-grid { grid-template-columns: 1fr; }
+  .ayurveda-heading { font-size: 32px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Ayurveda Feature Section",
+  "settings": [
+    { "type": "text", "id": "subheading", "label": "Eyebrow Tag", "default": "CUSTOMER FAVORITES" },
+    { "type": "text", "id": "heading_main", "label": "Heading Line 1 (Italic)", "default": "VANVASI AYURVEDA" },
+    { "type": "text", "id": "heading_accent", "label": "Heading Line 2 (Bold)", "default": "THE ANSWER YOU SEEK" },
+    { "type": "richtext", "id": "description", "label": "Main Description", "default": "<p>When you are seeking purity and just across your threshold but often within your reach, you will find the answer.</p>" },
+    { "type": "image_picker", "id": "main_image", "label": "Feature Image" },
+    { "type": "text", "id": "btn_label", "label": "Button Text", "default": "Know More" },
+    { "type": "url", "id": "btn_link", "label": "Button Link" }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "limit": 4,
+      "settings": [
+        { "type": "html", "id": "icon_svg", "label": "Icon SVG Code" },
+        { "type": "text", "id": "title", "label": "Feature Title", "default": "Authentic Heritage" },
+        { "type": "textarea", "id": "text", "label": "Feature Text", "default": "Rooted in 5000-year-old Ayurvedic wisdom" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ayurveda Feature Section",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Authentic Heritage" } },
+        { "type": "feature", "settings": { "title": "Purity in the Peaks" } },
+        { "type": "feature", "settings": { "title": "Premium Standards" } },
+        { "type": "feature", "settings": { "title": "Advanced Testing" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
