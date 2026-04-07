@@ -1,0 +1,234 @@
+{% style %}
+  /* Reset & Global Styles */
+  .vanvasi-header-container {
+    width: 100%;
+    background: #ffffff;
+  }
+
+  /* 1. Announcement Bar */
+  .vanvasi-top-bar {
+    background-color: {{ section.settings.brand_color }};
+    color: #ffffff;
+    padding: 8px 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 400;
+  }
+
+  .vanvasi-top-bar a { color: #fff; text-decoration: none; display: flex; align-items: center; gap: 5px; }
+
+  .marquee-container {
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0 20px;
+  }
+
+  .vanvasi-socials { display: flex; gap: 12px; }
+  .vanvasi-socials svg { width: 16px; height: 16px; fill: white; }
+
+  /* 2. Middle Header Section */
+  .vanvasi-mid-header {
+    display: grid;
+    grid-template-columns: 200px 1fr auto;
+    align-items: center;
+    padding: 15px 4%;
+    gap: 30px;
+  }
+
+  .vanvasi-logo img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .vanvasi-search-bar {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .search-wrapper {
+    display: flex;
+    border: 1px solid #d1d1d1;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .search-wrapper input {
+    flex: 1;
+    border: none;
+    padding: 12px 15px;
+    font-size: 13px;
+    outline: none;
+  }
+
+  .search-wrapper button {
+    background-color: {{ section.settings.brand_color }};
+    color: white;
+    border: none;
+    padding: 0 25px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  .vanvasi-icons {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .icon-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #333;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* 3. Navigation Bar */
+  .vanvasi-bottom-nav {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+  }
+
+  .vanvasi-bottom-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 15px 0;
+    margin: 0;
+  }
+
+  .vanvasi-bottom-nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+  }
+
+  /* --- MOBILE RESPONSIVENESS --- */
+  @media (max-width: 990px) {
+    .vanvasi-top-bar .vanvasi-socials, 
+    .vanvasi-top-bar .announcement-phone { display: none; }
+    
+    .vanvasi-mid-header {
+      grid-template-columns: 1fr 1fr; /* Logo and Icons */
+    }
+    
+    .vanvasi-search-bar {
+      grid-column: span 2;
+      order: 3;
+    }
+
+    .vanvasi-icons .icon-link span { display: none; } /* Hide labels, keep icons */
+    
+    .vanvasi-bottom-nav {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .vanvasi-bottom-nav ul {
+      justify-content: flex-start;
+      padding: 15px 20px;
+      width: max-content;
+    }
+  }
+{% endstyle %}
+
+<header class="vanvasi-header-container">
+  <div class="vanvasi-top-bar">
+    <div class="announcement-phone">
+      <a href="tel:{{ section.settings.phone_num }}">📞 {{ section.settings.phone_num }}</a>
+    </div>
+    <div class="marquee-container">
+      <marquee scrollamount="5">{{ section.settings.announcement }} • {{ section.settings.announcement }} • {{ section.settings.announcement }}</marquee>
+    </div>
+    <div class="vanvasi-socials">
+      <a href="#">{% render 'icon-facebook' %}</a>
+      <a href="#">{% render 'icon-instagram' %}</a>
+    </div>
+  </div>
+
+  <div class="vanvasi-mid-header">
+    <div class="vanvasi-logo">
+      <a href="/">
+        {% if section.settings.logo_img != blank %}
+          <img src="{{ section.settings.logo_img | img_url: '400x' }}" alt="{{ shop.name }}">
+        {% else %}
+          <span style="font-size: 24px; font-weight: bold; color: {{ section.settings.brand_color }};">VANVASI</span>
+        {% endif %}
+      </a>
+    </div>
+
+    <div class="vanvasi-search-bar">
+      <form action="/search" method="get" class="search-wrapper">
+        <input type="text" name="q" placeholder="SEARCH THE WEB STORE" aria-label="Search">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <div class="vanvasi-icons">
+      <a href="/pages/support" class="icon-link">✉ <span>Support</span></a>
+      <a href="/account/login" class="icon-link">👤 <span>Log in</span></a>
+      <a href="/cart" class="icon-link">👜 <span>Cart</span></a>
+    </div>
+  </div>
+
+  <nav class="vanvasi-bottom-nav">
+    <ul>
+      {% for link in linklists[section.settings.main_menu].links %}
+        <li><a href="{{ link.url }}">{{ link.title | uppercase }}</a></li>
+      {% endfor %}
+    </ul>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Vanvasi Custom Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo_img",
+      "label": "Logo"
+    },
+    {
+      "type": "color",
+      "id": "brand_color",
+      "label": "Main Brand Color",
+      "default": "#748e63"
+    },
+    {
+      "type": "text",
+      "id": "phone_num",
+      "label": "Phone",
+      "default": "+91 7880091133"
+    },
+    {
+      "type": "text",
+      "id": "announcement",
+      "label": "Announcement",
+      "default": "Rs.899 get flat 25% OFF"
+    },
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Select Menu",
+      "default": "main-menu"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vanvasi Custom Header"
+    }
+  ]
+}
+{% endschema %}
